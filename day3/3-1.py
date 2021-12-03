@@ -13,9 +13,8 @@ with open("input.txt", "r") as input_file:
     for n in range(num_bits):
         nth_bits = [bit[n] for bit in bits]
         num_ones = nth_bits.count(1)
-        num_zeros = nth_bits.count(0)
 
-        if num_ones > num_zeros:
+        if num_ones > len(nth_bits) / 2:
             gamma.append(1)
         else:
             gamma.append(0)

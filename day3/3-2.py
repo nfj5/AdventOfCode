@@ -8,34 +8,25 @@ def get_bits(bits, index, desired):
     return result_bits
 
 
-def get_rating(bits, oxygen):
+def get_rating(bits, take_most_common):
     num_bits = len(bits[0])
     remainder = bits
 
     n = 0
     while n < num_bits and len(remainder) != 1:
         nth_bits = [bit[n] for bit in remainder]
-        num_zeros = nth_bits.count(0)
-        num_ones = nth_bits.count(1)
 
-        if num_ones > num_zeros:
-            if oxygen:
-                remainder = get_bits(remainder, n, 1)
-            else:
-                remainder = get_bits(remainder, n, 0)
-        elif num_zeros > num_ones:
-            if oxygen:
-                remainder = get_bits(remainder, n, 0)
-            else:
-                remainder = get_bits(remainder, n, 1)
-        else:
-            if oxygen:
-                remainder = get_bits(remainder, n, 1)
-            else:
-                remainder = get_bits(remainder, n, 0)
+        num_ones = nth_bits.count(1)
+        half = len(nth_bits) / 2
+
+        if num_ones > half or num_ones == half:
+            remainder = get_bits(remainder, n, 1 if take_most_common else 0)
+        elif num_ones < half:
+            remainder = get_bits(remainder, n, 0 if take_most_common else 1)
 
         n += 1
 
+    # just in case
     if len(remainder) > 1:
         raise Exception("cannot have more than one result")
 
