@@ -53,11 +53,11 @@ with open("input.txt", "r") as input_file:
 
 win_status = {}
 for i in range(len(puzzles)):
-    win_status[i] = -1
+    win_status[i] = None
 
 for option_round, option in enumerate(options):
     for i, puzzle in enumerate(puzzles):
-        if win_status[i] != -1:
+        if win_status[i] is not None:
             continue
 
         puzzle = play_option(option, puzzle)
